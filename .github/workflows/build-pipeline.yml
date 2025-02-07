@@ -5,6 +5,9 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+env:
+  TAG: $(./build_version.sh)
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,8 +25,21 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: Build with Gradle Wrapper
+    - name: Build and test
       run: ./gradlew build
+
+    - name: Tag version
+      run: |
+        git tag "$TAG" 
+        git push origin "$TAG"
+
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: $TAG
+        release_name: Release $TAG
 
   notify-failure:
     name: Notify failure
