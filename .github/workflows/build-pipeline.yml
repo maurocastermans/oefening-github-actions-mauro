@@ -35,8 +35,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v2
         with:
-          webhook: https://api.slack.com/apps/A08BLCFQY4V
-          webhook-type: webhook-trigger
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
               "user": "${{ github.actor }}",
