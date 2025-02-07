@@ -17,3 +17,4 @@ class EntityIdTest {
         assertThat(actual.value).isEqualTo("NOT_FIXED")
     }
 }
+
