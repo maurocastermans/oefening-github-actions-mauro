@@ -25,11 +25,23 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    - name: Run tests
-      run: ./gradlew test
-
-    - name: Lint code
-      run: ./gradlew lint
-
-
+  notify-failure:
+    name: Notify failure
+    needs: build
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send GitHub trigger payload to Slack Workflow Builder
+        id: slack
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook: https://api.slack.com/apps/A08BLCFQY4V
+          payload: |
+            {
+              "user": "${{ github.actor }}",
+              "project" : "Kunlaquota",
+              "action" : "Tests",
+              "build" : "${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
+            }
+        
 
