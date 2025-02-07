@@ -35,13 +35,10 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v2
         with:
+          method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
-            {
-              "user": "${{ github.actor }}",
-              "project" : "Kunlaquota",
-              "action" : "Tests",
-              "build" : "${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}"
-            }
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            text: "Mauro's build failed"
         
 
