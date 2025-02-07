@@ -1,4 +1,4 @@
-![Build](https://github.com/github/docs/actions/workflows/build-pipeline.yml/badge.svg)
+![Build](https://github.com/maurocastermans/oefening-github-actions-mauro/actions/workflows/build-pipeline.yml/badge.svg)
 
 # KunlaQuota
 
